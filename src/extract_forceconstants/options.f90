@@ -68,7 +68,7 @@ type lo_opts
     logical :: fake_dielectric = .false.
     ! developer mode
     logical :: devmode = .false.
-
+    logical :: stop_after_num_FCs = .false.
 contains
     procedure :: parse
 end type
@@ -98,6 +98,10 @@ subroutine parse(opts)
                   epilog=new_line('a')//"...")
 
     ! real options
+    call cli%add(switch='--only_number_of_FCs', switch_ab='-sFC', &
+                 help='Stop after printing info about number of FCs', &
+                 required=.false., act='store_true', def='.false.', error=lo_status)
+    if (lo_status .ne. 0) stop
     call cli%add(switch='--secondorder_cutoff', switch_ab='-rc2', &
                  help='Cutoff for the second order force constants', &
                  required=.false., act='store', def='5.0', error=lo_status)
@@ -268,6 +272,7 @@ subroutine parse(opts)
     if (dumlog) opts%verbosity = 1
 
     ! Parse the rest of stuff
+    call cli%get(switch='--only_number_of_FCs', val=opts%stop_after_num_FCs)
     call cli%get(switch='-rc2', val=opts%cutoff2)
     call cli%get(switch='-rc3', val=opts%cutoff3)
     call cli%get(switch='-rc4', val=opts%cutoff4)

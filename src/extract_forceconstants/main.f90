@@ -241,6 +241,9 @@ else
             end if
         end block overdetermined
 
+        if (opts%stop_after_num_FCs) then
+           STOP "Info about number of FCs printed. Stopping by request"
+        endif
         ! Actual solution
         call lo_solve_for_irreducible_ifc(map, sim, uc, ss, opts%solver, mw, mem, opts%verbosity + 2, &
                                           lotofilename='infile.lotosplitting', &
