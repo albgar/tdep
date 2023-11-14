@@ -68,7 +68,7 @@ do
 done
 
 # read the machine-specific settings
-source important_settings
+source ./important_settings
 echo "parsed the important settings"
 
 # ok, that's a decent start. Start by building the main library, that's the tricky part
@@ -184,7 +184,6 @@ phonon_dispersion_relations
 crystal_structure_info
 generate_structure
 canonical_configuration
-lineshape
 samples_from_md
 extract_forceconstants
 atomic_distribution
@@ -193,6 +192,7 @@ refine_structure
 thermal_conductivity
 anharmonic_free_energy
 "
+#AG: removed lineshape from above list for MN4 with intel 2017.4
 
 #some things that are not quite ok yet
 notdone="
